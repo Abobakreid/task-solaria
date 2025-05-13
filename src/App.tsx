@@ -1,28 +1,26 @@
-import image from './assets/0-floor.png';
-import svgOverlay from './assets/0-floor.svg';
+import { useState } from "react";
+import FilterForm from "./components/FilterForm";
+import MapPolygons from "./components/MapPolygons";
 
 function App() {
+  const [maxArea, setMaxArea] = useState<number>(300.0);
+  const [maxPrice, setMaxPrice] = useState<number>(30.0);
+  const [unitType, setUnitType] = useState<string>("Commercial");
+
   return (
-    <>
-      <img style={{
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#272727',
-        objectFit: 'cover'
-      }} src={image} />
-      <img style={{
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover'
-      }} src={svgOverlay} />
-    </>
-  )
+    <div className="flex space-x-4 p-4">
+      <FilterForm
+        maxArea={maxArea}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
+        setMaxArea={setMaxArea}
+        setUnitType={setUnitType}
+      />
+      <div className="relative w-full">
+        <MapPolygons unitType={unitType} maxArea={maxArea} />
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
